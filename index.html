@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生命灵数计算器 | Life Path Number</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+
+    <div class="container">
+        <header>
+            <h1>🔮 生命灵数计算器</h1>
+            <p class="subtitle">探索你的命运数字 · 解读人生蓝图</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <div class="input-card">
+                    <h2>📅 输入你的出生日期</h2>
+                    <div class="date-inputs">
+                        <div class="date-field">
+                            <label for="year">年份</label>
+                            <input type="number" id="year" min="1900" max="2100" placeholder="1990" value="">
+                        </div>
+                        <div class="date-field">
+                            <label for="month">月份</label>
+                            <input type="number" id="month" min="1" max="12" placeholder="1" value="">
+                        </div>
+                        <div class="date-field">
+                            <label for="day">日期</label>
+                            <input type="number" id="day" min="1" max="31" placeholder="1" value="">
+                        </div>
+                    </div>
+                    <button id="calculate-btn" class="btn-calculate" onclick="calculate()">
+                        计算生命灵数 ✨
+                    </button>
+                </div>
+            </section>
+
+            <section class="result-section" id="result-section" style="display: none;">
+                <div class="result-card">
+                    <div class="number-display">
+                        <div class="life-number" id="life-number">-</div>
+                        <div class="number-label" id="number-label">生命灵数</div>
+                    </div>
+
+                    <div class="calculation-breakdown" id="breakdown"></div>
+
+                    <div class="meaning-section">
+                        <h3>🌟 你的生命灵数含义</h3>
+                        <div class="meaning-content" id="meaning-content"></div>
+                    </div>
+
+                    <div class="traits-grid" id="traits-grid"></div>
+
+                    <div class="master-number-note" id="master-note" style="display: none;"></div>
+                </div>
+            </section>
+
+            <section class="all-numbers-section">
+                <h2>📖 生命灵数 1-9 概览</h2>
+                <div class="numbers-grid">
+                    <div class="number-card" data-num="1">
+                        <div class="num">1</div>
+                        <div class="num-title">领导者</div>
+                        <div class="num-desc">独立、果断、有开创精神</div>
+                        <div class="num-color" style="background: #e74c3c;"></div>
+                    </div>
+                    <div class="number-card" data-num="2">
+                        <div class="num">2</div>
+                        <div class="num-title">协调者</div>
+                        <div class="num-desc">温和、善解人意、重视合作</div>
+                        <div class="num-color" style="background: #e67e22;"></div>
+                    </div>
+                    <div class="number-card" data-num="3">
+                        <div class="num">3</div>
+                        <div class="num-title">表达者</div>
+                        <div class="num-desc">充满创意、幽默与表达力</div>
+                        <div class="num-color" style="background: #f1c40f;"></div>
+                    </div>
+                    <div class="number-card" data-num="4">
+                        <div class="num">4</div>
+                        <div class="num-title">实干者</div>
+                        <div class="num-desc">勤奋、务实、有责任感</div>
+                        <div class="num-color" style="background: #2ecc71;"></div>
+                    </div>
+                    <div class="number-card" data-num="5">
+                        <div class="num">5</div>
+                        <div class="num-title">冒险者</div>
+                        <div class="num-desc">热爱自由、灵活多变</div>
+                        <div class="num-color" style="background: #1abc9c;"></div>
+                    </div>
+                    <div class="number-card" data-num="6">
+                        <div class="num">6</div>
+                        <div class="num-title">守护者</div>
+                        <div class="num-desc">关爱他人、重视家庭</div>
+                        <div class="num-color" style="background: #3498db;"></div>
+                    </div>
+                    <div class="number-card" data-num="7">
+                        <div class="num">7</div>
+                        <div class="num-title">智者</div>
+                        <div class="num-desc">深思熟虑、追求真理</div>
+                        <div class="num-color" style="background: #9b59b6;"></div>
+                    </div>
+                    <div class="number-card" data-num="8">
+                        <div class="num">8</div>
+                        <div class="num-title">实现者</div>
+                        <div class="num-desc">追求成功与财富</div>
+                        <div class="num-color" style="background: #34495e;"></div>
+                    </div>
+                    <div class="number-card" data-num="9">
+                        <div class="num">9</div>
+                        <div class="num-title">人道者</div>
+                        <div class="num-desc">富有同情心与世界观</div>
+                        <div class="num-color" style="background: #e91e63;"></div>
+                    </div>
+                    <div class="number-card master" data-num="11">
+                        <div class="num">11</div>
+                        <div class="num-title">启发者 ✦</div>
+                        <div class="num-desc">高度直觉与灵性引导</div>
+                        <div class="num-color" style="background: linear-gradient(135deg, #667eea, #764ba2);"></div>
+                    </div>
+                    <div class="number-card master" data-num="22">
+                        <div class="num">22</div>
+                        <div class="num-title">建筑师 ✦</div>
+                        <div class="num-desc">将愿景化为具体成果</div>
+                        <div class="num-color" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
+                    </div>
+                    <div class="number-card master" data-num="33">
+                        <div class="num">33</div>
+                        <div class="num-title">大爱者 ✦</div>
+                        <div class="num-desc">无私奉献与慈悲</div>
+                        <div class="num-color" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="how-it-works">
+                <h2>🧮 计算方法</h2>
+                <div class="method-card">
+                    <p>生命灵数源自古希腊数学家<strong>毕达哥拉斯</strong>的数字命理学说。计算方式：</p>
+                    <ol>
+                        <li>将出生年月日的<strong>年、月、日</strong>分别拆成单个数字相加</li>
+                        <li>各自化简为一位数（若为 <strong>11</strong> 或 <strong>22</strong> 则保留为主数字）</li>
+                        <li>再将三个结果相加，化简为 <strong>1-9</strong> 或保留 <strong>11/22/33</strong> 主数字</li>
+                    </ol>
+                    <div class="example">
+                        <strong>示例：</strong>1990年1月15日<br>
+                        年：1+9+9+0 = 19 → 1+9 = 10 → 1+0 = <strong>1</strong><br>
+                        月：<strong>1</strong><br>
+                        日：1+5 = <strong>6</strong><br>
+                        总和：1 + 1 + 6 = <strong>8</strong> → 生命灵数为 <strong>8 号实现者</strong>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>🔮 生命灵数计算器 · 源自毕达哥拉斯的数字智慧</p>
+            <p class="footer-small">数字仅供参考与娱乐，人生由你定义</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
