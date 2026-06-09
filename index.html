@@ -58,6 +58,19 @@
                     <div class="traits-grid" id="traits-grid"></div>
 
                     <div class="master-number-note" id="master-note" style="display: none;"></div>
+
+                    <div class="share-section" id="share-section">
+                        <p class="share-label">分享你的结果 🔗</p>
+                        <div class="share-buttons">
+                            <button class="btn-share btn-copy" onclick="shareResult('copy')" title="复制链接">
+                                📋 复制链接
+                            </button>
+                            <button class="btn-share btn-native" onclick="shareResult('native')" title="分享到社交平台">
+                                📤 分享
+                            </button>
+                        </div>
+                        <div class="share-toast" id="share-toast">✅ 已复制到剪贴板！</div>
+                    </div>
                 </div>
             </section>
 

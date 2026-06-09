@@ -31,17 +31,22 @@
   - 响应式布局（移动端适配）
   - 11 张数字卡片配色方案
 
-**进行中：**
-- [ ] `script.js` — 计算逻辑与交互（下一步）
+### [2026-06-09] Day 2 — 功能完成 & 部署
 
-**待办：**
-- [ ] 核心计算引擎（reduceToSingle, calculateLifePath）
-- [x] 11 个数字的完整含义数据
-- [ ] 计算过程分步展示
-- [ ] 数字卡片点击交互
-- [ ] 输入校验
-- [ ] 结果区滚动定位
-- [ ] 分享功能（可选）
+**已完成：**
+- [x] `script.js` — 完整计算逻辑与交互
+  - `reduceToSingle()` — 化简数字，尊重主数字 11/22/33
+  - `calculateLifePath()` — 毕达哥拉斯三分组计算法
+  - 11 个数字的完整中文含义数据（标题、标签、描述、四特质网格）
+  - 分步计算过程展示（年/月/日各步 + 总和）
+  - 数字卡片点击预览含义
+  - 输入校验 + Enter 键跳转
+  - 结果区自动滚动定位 + 卡片高亮
+- [x] GitHub 仓库创建 → `github.com/tbukuai-coder/life-path-number`
+- [x] GitHub Pages 部署 → `tbukuai-coder.github.io/life-path-number`
+- [x] 自定义域名 `life-path-number.zeus.zim.gg` 配置中（待生效）
+
+**全部完成 🎉**
 
 ---
 
@@ -51,9 +56,12 @@
 life-path-number/
 ├── .git/
 ├── index.html      ← 页面结构
-├── style.css       ← 样式（完成）
-└── script.js       ← 逻辑（待创建）
+├── style.css       ← 样式
+├── script.js       ← 逻辑 + 含义数据
+└── PROGRESS.md     ← 本文件
 ```
+
+**在线地址:** https://tbukuai-coder.github.io/life-path-number/
 
 ---
 

@@ -250,6 +250,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Check URL hash for shared result on page load
+    const hash = window.location.hash;
+    if (hash.startsWith('#result=')) {
+        const num = parseInt(hash.replace('#result=', ''), 10);
+        if (NUMBER_DATA[num]) {
+            showResult(num);
+        }
+    }
 });
 
 /**
@@ -294,6 +303,9 @@ function showResult(num, breakdownText) {
     const data = NUMBER_DATA[num];
 
     if (!data) return;
+
+    // Store for sharing
+    currentShareNumber = num;
 
     // 1. Basic Info
     lifeNumberEl.textContent = num;
@@ -351,9 +363,82 @@ function updateGridHighlight(num) {
         const cardNum = parseInt(card.getAttribute('data-num'));
         if (cardNum === num) {
             card.classList.add('active');
-            // Scroll to it slightly if needed, or just highlight
         } else {
             card.classList.remove('active');
         }
     });
+}
+
+// --- 4. Share Functionality ---
+
+let currentShareNumber = null;
+
+/**
+ * Gets the current page URL with the result encoded in the hash
+ * @param {number} num - The Life Path Number
+ * @returns {string} URL with hash fragment
+ */
+function getShareURL(num) {
+    const base = window.location.origin + window.location.pathname;
+    return `${base}#result=${num}`;
+}
+
+/**
+ * Builds the share text string
+ * @param {number} num - The Life Path Number
+ * @returns {string} Shareable text
+ */
+function getShareText(num) {
+    const data = NUMBER_DATA[num];
+    if (!data) return '来算算你的生命灵数！';
+    return `🔮 我的生命灵数是 ${num} — ${data.title}！${data.tagline} 来算算你的吧 👉`;
+}
+
+/**
+ * Main share handler
+ * @param {'copy'|'native'} mode 
+ */
+function shareResult(mode) {
+    const num = currentShareNumber;
+    if (!num) return;
+
+    const url = getShareURL(num);
+    const text = getShareText(num);
+
+    if (mode === 'native' && navigator.share) {
+        // Use native Web Share API (mobile)
+        navigator.share({
+            title: `🔮 生命灵数 ${num} — ${NUMBER_DATA[num].title}`,
+            text: text,
+            url: url
+        }).catch(() => {}); // User cancelled
+    } else {
+        // Fallback: copy to clipboard
+        const copyText = `${text}\n${url}`;
+        navigator.clipboard.writeText(copyText).then(() => {
+            showToast();
+        }).catch(() => {
+            // Fallback for older browsers
+            const textarea = document.createElement('textarea');
+            textarea.value = copyText;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            showToast();
+        });
+    }
+}
+
+/**
+ * Shows the "Copied!" toast notification
+ */
+function showToast() {
+    const toast = document.getElementById('share-toast');
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 2500);
 }
